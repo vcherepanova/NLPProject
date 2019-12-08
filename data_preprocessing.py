@@ -54,12 +54,16 @@ def tag_document(tokenized_documents, tokenized_labels):
         for kp in kps:
             # find indices of keyphrases in text
             idx = [(i, i+len(kp)) for i in range(len(doc)-len(kp)+1) if doc[i:i+len(kp)] == kp]
+            # if keyphrase is not in abstract remove it 
+            if len(idx)==0:
+                tokenized_labels[key].remove(kp)
+
             # replace labels with 1,2 
             for j in range(len(idx)):
                 document_tagged[key][idx[j][0]] = 1
                 kp_len = idx[j][1]-idx[j][0]
                 document_tagged [key][idx[j][0]+1:idx[j][1]] = [2]*(kp_len-1)
-    return document_tagged 
+    return document_tagged, tokenized_labels
 
 
 def data_to_seq(documents_eng, vocab_ind_dict):
