@@ -62,7 +62,7 @@ def tag_document(tokenized_documents, tokenized_labels):
             for j in range(len(idx)):
                 document_tagged[key][idx[j][0]] = 1
                 kp_len = idx[j][1]-idx[j][0]
-                document_tagged [key][idx[j][0]+1:idx[j][1]] = [2]*(kp_len-1)
+                document_tagged[key][idx[j][0]+1:idx[j][1]] = [2]*(kp_len-1)
     return document_tagged, tokenized_labels
 
 
@@ -94,4 +94,16 @@ def tags_to_3D(tags):
             lab = tags[i][j]
             tags_3d[i][j][lab] = 1 
     return tags_3d
+
+def clean_data(docs_eng, tags, labels):
+    # remove documents with 0 keyphrases
+    ds = copy.deepcopy(docs_eng)
+    ts = copy.deepcopy(tags)
+    ls = copy.deepcopy(labels)
+    for key in tags.keys():
+        if np.count_nonzero(tags[key]) == 0:
+            del ds[key]
+            del ts[key]
+            del ls[key]
+    return(ds, ts, ls) 
    

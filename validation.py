@@ -5,14 +5,13 @@ import copy
 
 def recall(kp_true, kp_predicted):
     tp = 0
-    fn = 0
+    fn = 0 
     for i in kp_true:
         if (i in kp_predicted):
             tp = tp + 1
         else:
             fn = fn + 1
-    if (float(tp)+float(fn))!=0:
-        return float(tp)/(float(tp)+float(fn)) 
+    return float(tp)/(float(tp)+float(fn)) if (float(tp)+float(fn))!=0 else 0
 
 
 def precision(kp_true, kp_predicted):
@@ -49,7 +48,7 @@ def retrive_phrase(tags_predicted, document_eng):
  
             sentence.append(document_eng[i])
             if(i== len(tags_predicted)-1):#if it is the last element, we push
-                kp.append(copy.deepcopy(document_eng))
+                kp.append(copy.deepcopy(sentence))
         else:
             sentence.append(document_eng[i])
             if(i== len(tags_predicted)-1):
