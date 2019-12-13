@@ -31,7 +31,7 @@ def f1(kp_true, kp_predicted):
     return (2 * (precision_ * recall_)) / (precision_ + recall_) if precision_ + recall_ > 0 else 0
 
 
-def retrive_phrase(tags_predicted, document_eng):
+def retrive_phrase_BIO(tags_predicted, document_eng):
     #from tag 0,1,2 to keyphrase arrays (2d-sentences, words)
     kp = []
     sentence= []
@@ -49,6 +49,22 @@ def retrive_phrase(tags_predicted, document_eng):
             sentence.append(document_eng[i])
             if(i== len(tags_predicted)-1):#if it is the last element, we push
                 kp.append(copy.deepcopy(sentence))
+        else:
+            sentence.append(document_eng[i])
+            if(i== len(tags_predicted)-1):
+                kp.append(copy.deepcopy(sentence))
+    return kp
+
+def retrive_phrase_IO(tags_predicted, document_eng):
+    #from tag 0,1,2 to keyphrase arrays (2d-sentences, words)
+    kp = []
+    sentence= []
+    for i in range(len(tags_predicted)):
+        if (tags_predicted[i] == 0):
+            if len(sentence) != 0:
+                kp.append(copy.deepcopy(sentence))
+                
+            sentence.clear()#we know a sentence ends when we encounter 0, so push
         else:
             sentence.append(document_eng[i])
             if(i== len(tags_predicted)-1):

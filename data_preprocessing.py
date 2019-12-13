@@ -95,6 +95,17 @@ def tags_to_3D(tags):
             tags_3d[i][j][lab] = 1 
     return tags_3d
 
+
+def tags_to_2D(tags):
+    # converting labels 0,1,2 to basis vectors (for keras)
+    num_docs, len_doc = tags.shape
+    tags_2d = np.zeros(shape = (num_docs, len_doc, 2))
+    for i in range(num_docs):
+        for j in range(len_doc):
+            lab = tags[i][j]
+            tags_2d[i][j][lab] = 1 
+    return tags_2d
+
 def clean_data(docs_eng, tags, labels):
     # remove documents with 0 keyphrases
     ds = copy.deepcopy(docs_eng)
