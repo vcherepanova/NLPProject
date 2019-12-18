@@ -57,6 +57,7 @@ def tag_document(tokenized_documents, tokenized_labels):
             # if keyphrase is not in abstract remove it 
             if len(idx)==0:
                 tokenized_labels[key].remove(kp)
+            
 
             # replace labels with 1,2 
             for j in range(len(idx)):

@@ -14,6 +14,7 @@ def recall(kp_true, kp_predicted):
     return float(tp)/(float(tp)+float(fn)) if (float(tp)+float(fn))!=0 else 0
 
 
+
 def precision(kp_true, kp_predicted):
     tp = 0
     fp = 0
@@ -22,7 +23,7 @@ def precision(kp_true, kp_predicted):
             tp = tp + 1
         else:
             fp  = fp + 1
-    
+
     return float(tp)/(float(tp)+float(fp))  if (float(tp)+float(fp)) > 0 else 0
 
 def f1(kp_true, kp_predicted):
@@ -50,6 +51,7 @@ def retrive_phrase_BIO(tags_predicted, document_eng):
             if(i== len(tags_predicted)-1):#if it is the last element, we push
                 kp.append(copy.deepcopy(sentence))
         else:
+            
             sentence.append(document_eng[i])
             if(i== len(tags_predicted)-1):
                 kp.append(copy.deepcopy(sentence))
